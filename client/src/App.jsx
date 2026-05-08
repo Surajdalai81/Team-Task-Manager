@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -10,21 +10,41 @@ import DashboardLayout from "./layouts/DashboardLayout";
 
 import { Toaster } from "react-hot-toast";
 
-<Toaster position="top-right" />
+function ProtectedRoute({ children }) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
 
 function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
+    <>
+      <Toaster position="top-right" />
 
-      <Route path="/register" element={<Register />} />
+      <Routes>
+        <Route path="/login" element={<Login />} />
 
-      <Route element={<DashboardLayout />}>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/tasks" element={<Tasks />} />
-      </Route>
-    </Routes>
+        <Route path="/register" element={<Register />} />
+
+        <Route
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/tasks" element={<Tasks />} />
+        </Route>
+
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </>
   );
 }
 
