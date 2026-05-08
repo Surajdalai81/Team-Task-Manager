@@ -27,7 +27,7 @@ const Projects = () => {
     const loadProjects = async () => {
       try {
         const { data } = await API.get(
-          "/projects"
+          "/api/projects"
         );
 
         setProjects(data);
@@ -43,7 +43,7 @@ const Projects = () => {
   const fetchProjects = async () => {
     try {
       const { data } = await API.get(
-        "/projects"
+        "/api/projects"
       );
 
       setProjects(data);
@@ -63,7 +63,7 @@ const Projects = () => {
     }
 
     try {
-      await API.post("/projects", {
+      await API.post("/api/projects", {
         title: newProject.title,
         description:
           newProject.description,
@@ -96,7 +96,7 @@ const Projects = () => {
     status
   ) => {
     try {
-      await API.put(`/projects/${id}`, {
+      await API.put(`/api/projects/${id}`, {
         status,
       });
 
