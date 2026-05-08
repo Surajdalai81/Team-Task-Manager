@@ -1,13 +1,11 @@
-import express from "express";
+import app from "./app.js";
+import projectRoutes from "./routes/projectRoutes.js";
 
-const app = express();
+app.use("/api/projects", projectRoutes);
 
-app.get("/", (req, res) => {
-  return res.status(200).send("Backend Running Successfully");
-});
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
