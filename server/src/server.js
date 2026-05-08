@@ -1,14 +1,14 @@
-import app from "./app.js";
-import projectRoutes from "./routes/projectRoutes.js";
+const express = require("express");
+const app = express();
 
-app.use("/api/projects", projectRoutes);
+app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Team Task Manager Backend Running");
+  res.send("Backend Running Successfully");
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
