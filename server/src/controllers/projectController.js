@@ -10,7 +10,7 @@ export const createProject = async (req, res) => {
         title,
         description,
         status,
-        userId: req.user.id,
+        createdBy: req.user.id,
       },
     });
 
