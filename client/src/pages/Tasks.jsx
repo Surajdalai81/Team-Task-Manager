@@ -29,7 +29,7 @@ const Tasks = () => {
  useEffect(() => {
     const loadTasks = async () => {
       try {
-        const { data } = await API.get("/tasks");
+        const { data } = await API.get("/api/tasks");
 
         setTasks(data);
       } catch (error) {
@@ -658,7 +658,7 @@ const Tasks = () => {
                       data,
                     } =
                       await API.post(
-                        "/tasks",
+                        "/api/tasks",
                         payload
                       );
 
