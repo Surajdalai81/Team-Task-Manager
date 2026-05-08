@@ -3,22 +3,14 @@ import prisma from "../config/db.js";
 // CREATE PROJECT
 export const createProject = async (req, res) => {
   try {
-    const { name, description,status } = req.body;
-
-    // TEMP USER ID
-    const userId = 1;
+    const { title, description, status } = req.body;
 
     const project = await prisma.project.create({
       data: {
-        title: name,
+        title,
         description,
         status,
-
-        creator: {
-          connect: {
-            id: userId,
-          },
-        },
+        userId: req.user.id,
       },
     });
 
@@ -31,6 +23,7 @@ export const createProject = async (req, res) => {
     });
   }
 };
+    
 
 // GET ALL PROJECTS
 export const getProjects = async (req, res) => {
